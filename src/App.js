@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
+import "fontsource-roboto";
 
 import { Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
