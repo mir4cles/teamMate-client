@@ -1,11 +1,15 @@
 import React from "react";
 import LoggedIn from "./LoggedIn";
 import LoggedOut from "./LoggedOut";
-import { AppBar, Toolbar, Button, Link } from "@material-ui/core";
+import { AppBar, Toolbar, Button, Link, Tabs, Tab } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../store/user/selectors";
+import { Link as RouterLink } from "react-router-dom";
+import GroupIcon from "@material-ui/icons/Group";
+import EventNoteIcon from "@material-ui/icons/EventNote";
+import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +34,7 @@ export default function Navigation() {
   const loginLogoutControls = token ? <LoggedIn /> : <LoggedOut />;
 
   const classes = useStyles();
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -40,40 +45,54 @@ export default function Navigation() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+          <EmojiEventsIcon
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          />
           <Typography variant="h6" noWrap className={classes.title}>
             teamMate
           </Typography>
-          <nav>
-            <Link
-              variant="button"
-              color="inherit"
-              href="#"
-              className={classes.link}
-            >
-              MYTEAM
-            </Link>
-            <Link
-              variant="button"
-              color="inherit"
-              href="#"
-              className={classes.link}
-            >
-              EVENTS
-            </Link>
-            <Link
-              variant="button"
-              color="inherit"
-              href="#"
-              className={classes.link}
-            >
-              SUPPORT
-            </Link>
-          </nav>
-          <Button color="inherit" variant="outlined">
+          <Link
+            component={RouterLink}
+            variant="button"
+            color="inherit"
+            className={classes.link}
+            to="/support"
+          >
+            SUPPORT
+          </Link>
+          <Button
+            color="inherit"
+            variant="outlined"
+            component={RouterLink}
+            to="/login"
+          >
             LOGIN
           </Button>
         </Toolbar>
       </AppBar>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        centered
+      >
+        <Tab
+          icon={<GroupIcon />}
+          label="MY TEAM"
+          component={RouterLink}
+          to="/myteam"
+        />
+        <Tab
+          icon={<EventNoteIcon />}
+          label="EVENTS"
+          component={RouterLink}
+          to="/events"
+        />
+      </Tabs>
     </div>
     // <Navbar bg="light" expand="lg">
     //   <Navbar.Brand as={NavLink} to="/">
