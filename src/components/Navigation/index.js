@@ -1,15 +1,23 @@
 import React from "react";
-import LoggedIn from "./LoggedIn";
-import LoggedOut from "./LoggedOut";
-import { AppBar, Toolbar, Button, Link, Tabs, Tab } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { selectToken } from "../../store/user/selectors";
 import { Link as RouterLink } from "react-router-dom";
+
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Link from "@material-ui/core/Link";
+import { makeStyles } from "@material-ui/core/styles";
 import GroupIcon from "@material-ui/icons/Group";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
+
+import LoggedIn from "./LoggedIn";
+import LoggedOut from "./LoggedOut";
+
+import { selectToken } from "../../store/user/selectors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -94,18 +102,5 @@ export default function Navigation() {
         />
       </Tabs>
     </div>
-    // <Navbar bg="light" expand="lg">
-    //   <Navbar.Brand as={NavLink} to="/">
-    //     YOUR PROJECT NAME
-    //   </Navbar.Brand>
-    //   <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    //   <Navbar.Collapse id="basic-navbar-nav">
-    //     <Nav style={{ width: "100%" }} fill>
-    //       <NavbarItem path="/" linkText="Home" />
-    //       <NavbarItem path="/other" linkText="Other" />
-    //       {loginLogoutControls}
-    //     </Nav>
-    //   </Navbar.Collapse>
-    // </Navbar>
   );
 }
