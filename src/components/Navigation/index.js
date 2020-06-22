@@ -90,9 +90,9 @@ export default function Navigation() {
       >
         <Tab
           icon={<GroupIcon />}
-          label="MY TEAM"
+          label="TEAMS"
           component={RouterLink}
-          to="/myteam"
+          to="/teams"
         />
         <Tab
           icon={<EventNoteIcon />}

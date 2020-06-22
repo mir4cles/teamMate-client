@@ -8,7 +8,8 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
-import MyTeam from "./pages/MyTeam";
+import Teams from "./pages/Teams";
+import TeamDetails from "./pages/TeamDetails";
 import Events from "./pages/Events";
 import EventDetails from "./pages/EventDetails";
 import Support from "./pages/Support";
@@ -33,7 +34,8 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/myteam" component={MyTeam} />
+        <Route exact path="/teams" component={Teams} />
+        <Route path="/teams/:id" component={TeamDetails} />
         <Route exact path="/events" component={Events} />
         <Route path="/events/:id" component={EventDetails} />
         <Route path="/login" component={Login} />
