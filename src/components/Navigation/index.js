@@ -71,16 +71,10 @@ export default function Navigation() {
           >
             SUPPORT
           </Link>
-          <Button
-            color="inherit"
-            variant="outlined"
-            component={RouterLink}
-            to="/login"
-          >
-            LOGIN
-          </Button>
+          {loginLogoutControls}
         </Toolbar>
       </AppBar>
+
       <Tabs
         value={value}
         onChange={handleChange}
