@@ -11,10 +11,12 @@ export const fetchEventsSuccess = (events) => ({
 export const fetchEvents = () => {
   return async (dispatch, getState) => {
     const eventsCount = getState().events.length;
+    // const response = await axios.get(
+    //   `http://localhost:4000/events?limit=${DEFAULT_PAGINATION_LIMIT}`
+    // );
     const response = await axios.get(
       `${apiUrl}/events?limit=${DEFAULT_PAGINATION_LIMIT}&offset=${eventsCount}`
     );
-
     // console.log(response.data);
     dispatch(fetchEventsSuccess(response.data.events.rows));
   };

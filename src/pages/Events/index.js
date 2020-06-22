@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import {
   Container,
@@ -8,10 +10,8 @@ import {
   CardContent,
   Button,
   CardActions,
-  Link,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
 
 import { selectEvents } from "../../store/events/selectors";
 import { fetchEvents } from "../../store/events/actions";
@@ -67,7 +67,7 @@ export default function Events() {
                     color="textSecondary"
                     gutterBottom
                   >
-                    {events.startDateTime}
+                    {event.startDateTime}
                   </Typography>
                   <Typography variant="h5" component="h2">
                     {event.title}
