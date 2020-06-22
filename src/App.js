@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
 import MyTeam from "./pages/MyTeam";
 import Events from "./pages/Events";
+import EventDetails from "./pages/EventDetails";
 import Support from "./pages/Support";
 import NotFound from "./pages/NotFound";
 
@@ -33,9 +34,10 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/myteam" component={MyTeam} />
-        <Route path="/events" component={Events} />
+        <Route exact path="/events" component={Events} />
+        <Route path="/events/:id" component={EventDetails} />
         <Route path="/login" component={Login} />
-        <Route path="/profiles/:userId" component={MyProfile} />
+        <Route path="/profiles/:id" component={MyProfile} />
         <Route path="/signup" component={SignUp} />
         <Route path="/support" component={Support} />
         <Route path="/" component={NotFound} />
