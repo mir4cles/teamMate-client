@@ -10,11 +10,14 @@ import {
   CardContent,
   Button,
   CardActions,
+  Fab,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import AddIcon from "@material-ui/icons/Add";
 
 import { selectEvents } from "../../store/events/selectors";
 import { fetchEvents } from "../../store/events/actions";
+import { selectToken } from "../../store/user/selectors";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -31,6 +34,11 @@ const useStyles = makeStyles((theme) => ({
   pos: {
     marginBottom: 12,
   },
+  fab: {
+    position: "absolute",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
 }));
 
 export default function Events() {
@@ -39,6 +47,8 @@ export default function Events() {
   const dispatch = useDispatch();
 
   const events = useSelector(selectEvents);
+
+  const token = useSelector(selectToken);
 
   useEffect(() => {
     dispatch(fetchEvents());
@@ -55,6 +65,18 @@ export default function Events() {
         >
           Events
         </Typography>
+        {token ? (
+          <Fab
+            size="medium"
+            color="secondary"
+            className={classes.fab}
+            aria-label="create event"
+            component={Link}
+            to="/create-event"
+          >
+            <AddIcon />
+          </Fab>
+        ) : null}
       </Container>
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
