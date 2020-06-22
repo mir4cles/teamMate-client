@@ -1,13 +1,7 @@
 import React from "react";
-import Spinner from "react-bootstrap/Spinner";
-import "./spinner.css";
+
+import Skeleton from "@material-ui/lab/Skeleton";
 
 export default function Loading() {
-  return (
-    <div className="loading_spinner">
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    </div>
-  );
+  return <Skeleton animation="wave" />;
 }
