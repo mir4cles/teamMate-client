@@ -23,11 +23,6 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     padding: theme.spacing(4, 0, 6),
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
   title: {
     fontSize: 14,
   },
@@ -35,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 12,
   },
   fab: {
-    position: "absolute",
+    position: "fixed",
     bottom: theme.spacing(2),
     right: theme.spacing(2),
   },
@@ -79,9 +74,15 @@ export default function Events() {
         ) : null}
       </Container>
       <Container maxWidth="md" component="main">
-        <Grid container spacing={5} alignItems="flex-end">
+        <Grid
+          direction="column"
+          justify="center"
+          alignItems="center"
+          container
+          spacing={5}
+        >
           {events.map((event) => (
-            <Grid item key={event.id} xs={12} sm={6} md={4}>
+            <Grid item key={event.id} xs={12} sm={12} md={12}>
               <Card>
                 <CardContent>
                   <Typography
@@ -105,6 +106,7 @@ export default function Events() {
                   <Button
                     size="small"
                     component={Link}
+                    color="primary"
                     to={`/events/${event.id}`}
                   >
                     See details

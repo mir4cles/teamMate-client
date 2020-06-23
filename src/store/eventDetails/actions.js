@@ -11,7 +11,6 @@ const eventDetailsFetched = (event) => ({
 export const fetchEventById = (id) => {
   return async (dispatch, getState) => {
     const response = await axios.get(`${apiUrl}/events/${id}`);
-    console.log(response);
     dispatch(eventDetailsFetched(response.data.event));
   };
 };
