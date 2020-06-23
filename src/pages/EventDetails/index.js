@@ -57,8 +57,14 @@ export default function Events() {
         </Typography>
       </Container>
       <Container maxWidth="md" component="main">
-        <Grid container spacing={5} alignItems="flex-end">
-          <Grid item key={event.id} xs={12} sm={6} md={4}>
+        <Grid
+          direction="column"
+          justify="center"
+          alignItems="center"
+          container
+          spacing={5}
+        >
+          <Grid item key={event.id} xs={12} sm={12} md={12}>
             <Card>
               <CardContent>
                 <Typography
