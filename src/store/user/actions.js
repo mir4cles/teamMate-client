@@ -1,6 +1,6 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
-import { selectToken } from "./selectors";
+import { selectToken, selectUser } from "./selectors";
 import {
   appLoading,
   appDoneLoading,
@@ -106,5 +106,45 @@ export const getUserWithStoredToken = () => {
       dispatch(logOut());
       dispatch(appDoneLoading());
     }
+  };
+};
+
+export const createEvent = (
+  title,
+  startDate,
+  endDate,
+  location,
+  sportType,
+  description,
+  outdoor,
+  maxPlayers
+) => {
+  return async (dispatch, getState) => {
+    const { id, token } = selectUser(getState());
+    dispatch(appLoading());
+
+    const response = await axios.post(
+      `${apiUrl}/events`,
+      {
+        title,
+        startDate,
+        endDate,
+        location,
+        sportType,
+        description,
+        outdoor,
+        maxPlayers,
+        id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dispatch(
+      showMessageWithTimeout("success", false, response.data.message, 3000)
+    );
+    dispatch(appDoneLoading());
   };
 };

@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 import {
   Container,
@@ -10,15 +9,11 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Input,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { selectToken } from "../../store/user/selectors";
+import { createEvent } from "../../store/user/actions";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -38,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateEvent() {
   const classes = useStyles();
   const token = useSelector(selectToken);
+
+  const dispatch = useDispatch();
 
   const [title, setTitle] = React.useState("");
   const [startDate, setStartDate] = React.useState("");
@@ -61,7 +58,18 @@ export default function CreateEvent() {
       outdoor,
       maxPlayers
     );
-    // dispatch(startAuction(title, parseInt(minimumBid), imageUrl));
+    dispatch(
+      createEvent(
+        title,
+        startDate,
+        endDate,
+        location,
+        sportType,
+        description,
+        outdoor,
+        maxPlayers
+      )
+    );
     // setTitle("");
     // setMinimumBid("0");
     // setImageUrl("");
