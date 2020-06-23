@@ -11,6 +11,8 @@ import {
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
+export const ATTEND_EVENT = "ATTEND_EVENT";
+export const UPDATE_EVENTS = "UPDATE_EVENTS";
 
 const loginSuccess = (userWithToken) => {
   return {
@@ -146,5 +148,42 @@ export const createEvent = (
       showMessageWithTimeout("success", false, response.data.message, 3000)
     );
     dispatch(appDoneLoading());
+  };
+};
+
+export const attendEvent = (eventId) => {
+  return async (dispatch, getState) => {
+    const { id, token } = selectUser(getState());
+    dispatch(appLoading());
+
+    const response = await axios.post(
+      `${apiUrl}/events/${eventId}/rsvp`,
+      {
+        id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    // console.log("log from action:", response.data);
+    dispatch(attendEventSuccess(response.data.user));
+    // dispatch(updateEventsList(response.data.event));
+    dispatch(appDoneLoading());
+  };
+};
+
+const attendEventSuccess = (user) => {
+  return {
+    type: ATTEND_EVENT,
+    payload: user,
+  };
+};
+
+const updateEventsList = (event) => {
+  return {
+    type: UPDATE_EVENTS,
+    payload: event,
   };
 };

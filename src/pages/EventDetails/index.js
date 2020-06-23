@@ -20,6 +20,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { selectEventDetails } from "../../store/eventDetails/selectors";
 import { fetchEventById } from "../../store/eventDetails/actions";
+import { attendEvent } from "../../store/user/actions";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -104,6 +105,15 @@ export default function Events() {
                   );
                 })}
               </CardContent>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => dispatch(attendEvent(id))}
+                >
+                  Attend event
+                </Button>
+              </CardActions>
             </Card>
           </Grid>
         </Grid>
