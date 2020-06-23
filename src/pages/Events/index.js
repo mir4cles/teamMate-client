@@ -101,6 +101,15 @@ export default function Events() {
                   <Typography variant="body2" component="p">
                     {event.description}
                   </Typography>
+                  {event.attandees.length ? (
+                    <Typography
+                      variant="body2"
+                      component="p"
+                      color="textSecondary"
+                    >
+                      {event.attandees.length} attending
+                    </Typography>
+                  ) : null}
                 </CardContent>
                 <CardActions>
                   <Button
@@ -110,6 +119,9 @@ export default function Events() {
                     to={`/events/${event.id}`}
                   >
                     See details
+                  </Button>
+                  <Button size="small" color="primary">
+                    Attend event
                   </Button>
                 </CardActions>
               </Card>
