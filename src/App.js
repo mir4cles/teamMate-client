@@ -12,6 +12,7 @@ import Teams from "./pages/Teams";
 import TeamDetails from "./pages/TeamDetails";
 import Events from "./pages/Events";
 import EventDetails from "./pages/EventDetails";
+import CreateEvent from "./pages/CreateEvent";
 import Support from "./pages/Support";
 import NotFound from "./pages/NotFound";
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/teams/:id" component={TeamDetails} />
         <Route exact path="/events" component={Events} />
         <Route path="/events/:id" component={EventDetails} />
+        <Route path="/create-event" component={CreateEvent} />
         <Route path="/login" component={Login} />
         <Route path="/profiles/:id" component={MyProfile} />
         <Route path="/signup" component={SignUp} />
