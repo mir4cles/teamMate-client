@@ -2,7 +2,7 @@ import { EVENT_DETAILS_FETCHED } from "./actions";
 import { ATTEND_EVENT } from "../user/actions";
 
 const initialState = {
-  attandees: [],
+  attending: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -13,7 +13,7 @@ export default (state = initialState, { type, payload }) => {
     case ATTEND_EVENT:
       return {
         ...state,
-        attandees: [...state.attandees, payload],
+        attending: [...state.attending, payload],
       };
 
     default:

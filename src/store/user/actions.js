@@ -156,21 +156,32 @@ export const attendEvent = (eventId) => {
     const { id, token } = selectUser(getState());
     dispatch(appLoading());
 
-    const response = await axios.post(
-      `${apiUrl}/events/${eventId}/rsvp`,
-      {
-        id,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await axios.post(
+        `${apiUrl}/events/${eventId}/rsvp`,
+        {
+          id,
         },
-      }
-    );
-    // console.log("log from action:", response.data);
-    dispatch(attendEventSuccess(response.data.user));
-    // dispatch(updateEventsList(response.data.event));
-    dispatch(appDoneLoading());
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(attendEventSuccess(response.data.user));
+      // dispatch(updateEventsList(response.data.event));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        showMessageWithTimeout(
+          "succes",
+          false,
+          "You are already attending this event",
+          3000
+        )
+      );
+    }
   };
 };
 

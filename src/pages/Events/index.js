@@ -101,13 +101,13 @@ export default function Events() {
                   <Typography variant="body2" component="p">
                     {event.description}
                   </Typography>
-                  {event.attandees.length ? (
+                  {event.attending.length ? (
                     <Typography
                       variant="body2"
                       component="p"
                       color="textSecondary"
                     >
-                      {event.attandees.length} attending
+                      {event.attending.length} attending
                     </Typography>
                   ) : null}
                 </CardContent>
