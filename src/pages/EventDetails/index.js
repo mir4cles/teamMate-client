@@ -15,7 +15,6 @@ import {
   Avatar,
   ListItemAvatar,
   ListItemText,
-  Skeleton,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
@@ -23,7 +22,7 @@ import EventBusyIcon from "@material-ui/icons/EventBusy";
 
 import { selectEventDetails } from "../../store/eventDetails/selectors";
 import { fetchEventById } from "../../store/eventDetails/actions";
-import { attendEvent } from "../../store/user/actions";
+import { attendEvent, cancelAttendEvent } from "../../store/user/actions";
 import { selectToken, selectUser } from "../../store/user/selectors";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +60,7 @@ export default function Events() {
       color="secondary"
       className={classes.button}
       startIcon={<EventBusyIcon />}
-      onClick={() => dispatch(attendEvent(id))}
+      onClick={() => dispatch(cancelAttendEvent(id))}
     >
       Cancel
     </Button>

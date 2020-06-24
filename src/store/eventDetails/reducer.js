@@ -1,5 +1,5 @@
 import { EVENT_DETAILS_FETCHED } from "./actions";
-import { ATTEND_EVENT } from "../user/actions";
+import { ATTEND_EVENT, CANCEL_ATTEND_EVENT } from "../user/actions";
 
 const initialState = {
   attending: [],
@@ -14,6 +14,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         attending: [...state.attending, payload],
+      };
+
+    case CANCEL_ATTEND_EVENT:
+      return {
+        ...state,
+        attending: [...state.attending.filter((rsvp) => rsvp.id !== payload)],
       };
 
     default:
