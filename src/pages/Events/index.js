@@ -120,9 +120,6 @@ export default function Events() {
                   >
                     See details
                   </Button>
-                  <Button size="small" color="primary">
-                    Attend event
-                  </Button>
                 </CardActions>
               </Card>
             </Grid>

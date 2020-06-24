@@ -169,10 +169,8 @@ export const attendEvent = (eventId) => {
         }
       );
       dispatch(attendEventSuccess(response.data.user));
-      // dispatch(updateEventsList(response.data.event));
       dispatch(appDoneLoading());
     } catch (error) {
-      console.log(error);
       dispatch(
         showMessageWithTimeout(
           "succes",

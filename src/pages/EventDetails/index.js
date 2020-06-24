@@ -19,11 +19,12 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
+import EventBusyIcon from "@material-ui/icons/EventBusy";
 
 import { selectEventDetails } from "../../store/eventDetails/selectors";
 import { fetchEventById } from "../../store/eventDetails/actions";
 import { attendEvent } from "../../store/user/actions";
-import { selectToken } from "../../store/user/selectors";
+import { selectToken, selectUser } from "../../store/user/selectors";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -51,6 +52,30 @@ export default function Events() {
   const event = useSelector(selectEventDetails);
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
+  const user = useSelector(selectUser);
+
+  const attendingIds = event.attending.map((user) => user.id);
+  const attendButton = attendingIds.includes(user.id) ? (
+    <Button
+      variant="contained"
+      color="secondary"
+      className={classes.button}
+      startIcon={<EventBusyIcon />}
+      onClick={() => dispatch(attendEvent(id))}
+    >
+      Cancel
+    </Button>
+  ) : (
+    <Button
+      variant="contained"
+      color="primary"
+      className={classes.button}
+      startIcon={<EventAvailableIcon />}
+      onClick={() => dispatch(attendEvent(id))}
+    >
+      Attend
+    </Button>
+  );
 
   useEffect(() => {
     dispatch(fetchEventById(id));
@@ -111,17 +136,7 @@ export default function Events() {
                   );
                 })}
               </CardContent>
-              <CardActions>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  startIcon={<EventAvailableIcon />}
-                  onClick={() => dispatch(attendEvent(id))}
-                >
-                  Attend
-                </Button>
-              </CardActions>
+              {token ? <CardActions>{attendButton}</CardActions> : null}
             </Card>
           </Grid>
         </Grid>
