@@ -11,6 +11,9 @@ import {
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
+export const ATTEND_EVENT = "ATTEND_EVENT";
+export const UPDATE_EVENTS = "UPDATE_EVENTS";
+export const CANCEL_ATTEND_EVENT = "CANCEL_ATTEND_EVENT";
 
 const loginSuccess = (userWithToken) => {
   return {
@@ -146,5 +149,83 @@ export const createEvent = (
       showMessageWithTimeout("success", false, response.data.message, 3000)
     );
     dispatch(appDoneLoading());
+  };
+};
+
+export const attendEvent = (eventId) => {
+  return async (dispatch, getState) => {
+    const { id, token } = selectUser(getState());
+    dispatch(appLoading());
+
+    try {
+      const response = await axios.post(
+        `${apiUrl}/events/${eventId}/rsvp`,
+        {
+          id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(attendEventSuccess(response.data.user));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(
+        showMessageWithTimeout(
+          "succes",
+          false,
+          "You are already attending this event",
+          3000
+        )
+      );
+    }
+  };
+};
+
+const attendEventSuccess = (user) => {
+  return {
+    type: ATTEND_EVENT,
+    payload: user,
+  };
+};
+
+export const cancelAttendEvent = (eventId) => {
+  return async (dispatch, getState) => {
+    const { id, token } = selectUser(getState());
+    dispatch(appLoading());
+    try {
+      await axios.delete(`${apiUrl}/events/${eventId}/rsvp`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(cancelAttendEventSuccess(id));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(
+        showMessageWithTimeout(
+          "succes",
+          false,
+          "You already cancelled this event",
+          3000
+        )
+      );
+    }
+  };
+};
+
+const cancelAttendEventSuccess = (userId) => {
+  return {
+    type: CANCEL_ATTEND_EVENT,
+    payload: userId,
+  };
+};
+
+const updateEventsList = (event) => {
+  return {
+    type: UPDATE_EVENTS,
+    payload: event,
   };
 };

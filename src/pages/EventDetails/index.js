@@ -10,11 +10,20 @@ import {
   CardContent,
   Button,
   CardActions,
+  List,
+  ListItem,
+  Avatar,
+  ListItemAvatar,
+  ListItemText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import EventAvailableIcon from "@material-ui/icons/EventAvailable";
+import EventBusyIcon from "@material-ui/icons/EventBusy";
 
 import { selectEventDetails } from "../../store/eventDetails/selectors";
 import { fetchEventById } from "../../store/eventDetails/actions";
+import { attendEvent, cancelAttendEvent } from "../../store/user/actions";
+import { selectToken, selectUser } from "../../store/user/selectors";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -31,14 +40,41 @@ const useStyles = makeStyles((theme) => ({
   pos: {
     marginBottom: 12,
   },
+  button: {
+    margin: theme.spacing(1),
+  },
 }));
 
 export default function Events() {
   const classes = useStyles();
-
   const { id } = useParams();
   const event = useSelector(selectEventDetails);
   const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+  const user = useSelector(selectUser);
+
+  const attendingIds = event.attending.map((user) => user.id);
+  const attendButton = attendingIds.includes(user.id) ? (
+    <Button
+      variant="contained"
+      color="secondary"
+      className={classes.button}
+      startIcon={<EventBusyIcon />}
+      onClick={() => dispatch(cancelAttendEvent(id))}
+    >
+      Cancel
+    </Button>
+  ) : (
+    <Button
+      variant="contained"
+      color="primary"
+      className={classes.button}
+      startIcon={<EventAvailableIcon />}
+      onClick={() => dispatch(attendEvent(id))}
+    >
+      Attend
+    </Button>
+  );
 
   useEffect(() => {
     dispatch(fetchEventById(id));
@@ -64,7 +100,7 @@ export default function Events() {
           container
           spacing={5}
         >
-          <Grid item key={event.id} xs={12} sm={12} md={12}>
+          <Grid item key={event.id} xs={12} sm={10} md={8}>
             <Card>
               <CardContent>
                 <Typography
@@ -83,7 +119,23 @@ export default function Events() {
                 <Typography variant="body2" component="p">
                   {event.description}
                 </Typography>
+                {event.attending.map((attendee) => {
+                  return (
+                    <List key={attendee.id}>
+                      <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                          <Avatar src={attendee.avatarUrl} />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={attendee.name}
+                          secondary={attendee.email}
+                        />
+                      </ListItem>
+                    </List>
+                  );
+                })}
               </CardContent>
+              {token ? <CardActions>{attendButton}</CardActions> : null}
             </Card>
           </Grid>
         </Grid>

@@ -101,6 +101,15 @@ export default function Events() {
                   <Typography variant="body2" component="p">
                     {event.description}
                   </Typography>
+                  {event.attending.length ? (
+                    <Typography
+                      variant="body2"
+                      component="p"
+                      color="textSecondary"
+                    >
+                      {event.attending.length} attending
+                    </Typography>
+                  ) : null}
                 </CardContent>
                 <CardActions>
                   <Button
