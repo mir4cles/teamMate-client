@@ -3,6 +3,7 @@ import { ATTEND_EVENT, CANCEL_ATTEND_EVENT } from "../user/actions";
 
 const initialState = {
   attending: [],
+  user: [],
 };
 
 export default (state = initialState, { type, payload }) => {
