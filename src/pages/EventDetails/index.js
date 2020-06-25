@@ -22,6 +22,7 @@ import EventBusyIcon from "@material-ui/icons/EventBusy";
 import EditIcon from "@material-ui/icons/Edit";
 
 import Loading from "../../components/Loading";
+import EditEventForm from "./EditEventForm";
 
 import { selectEventDetails } from "../../store/eventDetails/selectors";
 import { fetchEventById } from "../../store/eventDetails/actions";
@@ -31,7 +32,7 @@ import {
   editEvent,
 } from "../../store/user/actions";
 import { selectToken, selectUser } from "../../store/user/selectors";
-import EditEventForm from "./EditEventForm";
+import { selectAppLoading } from "../../store/appState/selectors";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -61,6 +62,7 @@ export default function Events() {
   const token = useSelector(selectToken);
   const user = useSelector(selectUser);
   const [editMode, setEditMode] = useState(false);
+  const loading = useSelector(selectAppLoading);
 
   const attendingIds = event.attending.map((user) => user.id);
   const attendButton = attendingIds.includes(user.id) ? (
@@ -88,6 +90,10 @@ export default function Events() {
   useEffect(() => {
     dispatch(fetchEventById(id));
   }, [dispatch, id]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (!editMode) {
     return (

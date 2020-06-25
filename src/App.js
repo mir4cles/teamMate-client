@@ -32,7 +32,6 @@ function App() {
     <>
       <Navigation />
       <MessageBox />
-      {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/teams" component={Teams} />
