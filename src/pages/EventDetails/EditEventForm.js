@@ -201,12 +201,7 @@ export default function EditEventForm(props) {
           </Grid>
         </Grid>
         <div className={classes.buttons}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={submitForm}
-            className={classes.button}
-          >
+          <Button variant="contained" color="primary" onClick={submitForm}>
             Submit
           </Button>
         </div>
