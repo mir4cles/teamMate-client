@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -19,11 +19,19 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import EventBusyIcon from "@material-ui/icons/EventBusy";
+import EditIcon from "@material-ui/icons/Edit";
+
+import Loading from "../../components/Loading";
 
 import { selectEventDetails } from "../../store/eventDetails/selectors";
 import { fetchEventById } from "../../store/eventDetails/actions";
-import { attendEvent, cancelAttendEvent } from "../../store/user/actions";
+import {
+  attendEvent,
+  cancelAttendEvent,
+  editEvent,
+} from "../../store/user/actions";
 import { selectToken, selectUser } from "../../store/user/selectors";
+import EditEventForm from "./EditEventForm";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -52,6 +60,7 @@ export default function Events() {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const user = useSelector(selectUser);
+  const [editMode, setEditMode] = useState(false);
 
   const attendingIds = event.attending.map((user) => user.id);
   const attendButton = attendingIds.includes(user.id) ? (
@@ -80,66 +89,121 @@ export default function Events() {
     dispatch(fetchEventById(id));
   }, [dispatch, id]);
 
-  return (
-    <>
-      <Container maxWidth="sm" component="main" className={classes.heroContent}>
-        <Typography
-          variant="h5"
-          align="center"
-          color="textSecondary"
-          component="p"
+  if (!editMode) {
+    return (
+      <>
+        <Container
+          maxWidth="sm"
+          component="main"
+          className={classes.heroContent}
         >
-          Events
-        </Typography>
-      </Container>
-      <Container maxWidth="md" component="main">
-        <Grid
-          direction="column"
-          justify="center"
-          alignItems="center"
-          container
-          spacing={5}
-        >
-          <Grid item key={event.id} xs={12} sm={10} md={8}>
-            <Card>
-              <CardContent>
-                <Typography
-                  className={classes.title}
-                  color="textSecondary"
-                  gutterBottom
-                >
-                  {event.startDateTime}
-                </Typography>
-                <Typography variant="h5" component="h2">
-                  {event.title}
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                  Location: {event.location}
-                </Typography>
-                <Typography variant="body2" component="p">
-                  {event.description}
-                </Typography>
-                {event.attending.map((attendee) => {
-                  return (
-                    <List key={attendee.id}>
-                      <ListItem alignItems="flex-start">
-                        <ListItemAvatar>
-                          <Avatar src={attendee.avatarUrl} />
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={attendee.name}
-                          secondary={attendee.email}
-                        />
-                      </ListItem>
-                    </List>
-                  );
-                })}
-              </CardContent>
-              {token ? <CardActions>{attendButton}</CardActions> : null}
-            </Card>
+          <Typography
+            variant="h5"
+            align="center"
+            color="textSecondary"
+            component="p"
+          >
+            Event details
+          </Typography>
+        </Container>
+        <Container maxWidth="md" component="main">
+          <Grid
+            direction="column"
+            justify="center"
+            alignItems="center"
+            container
+            spacing={5}
+          >
+            <Grid item key={event.id} xs={12} sm={10} md={8}>
+              <Card>
+                <CardContent>
+                  <Typography
+                    className={classes.title}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    {event.startDateTime}
+                  </Typography>
+                  <Typography variant="h5" component="h2">
+                    {event.title}
+                  </Typography>
+                  <Typography className={classes.pos} color="textSecondary">
+                    Location: {event.location}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    {event.description}
+                  </Typography>
+                  {event.attending.map((attendee) => {
+                    return (
+                      <List key={attendee.id}>
+                        <ListItem alignItems="flex-start">
+                          <ListItemAvatar>
+                            <Avatar src={attendee.avatarUrl} />
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={attendee.name}
+                            secondary={attendee.email}
+                          />
+                        </ListItem>
+                      </List>
+                    );
+                  })}
+                </CardContent>
+                <CardActions>
+                  {token ? attendButton : null}
+                  {event.userId === user.id ? (
+                    <Button
+                      variant="contained"
+                      color="default"
+                      className={classes.button}
+                      startIcon={<EditIcon />}
+                      onClick={() => setEditMode(true)}
+                    >
+                      Edit event
+                    </Button>
+                  ) : null}
+                </CardActions>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
-    </>
-  );
+        </Container>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Container
+          maxWidth="sm"
+          component="main"
+          className={classes.heroContent}
+        >
+          <Typography
+            variant="h5"
+            align="center"
+            color="textSecondary"
+            component="p"
+          >
+            Edit event details
+          </Typography>
+        </Container>
+        <Container maxWidth="md" component="main">
+          <Grid
+            direction="column"
+            justify="center"
+            alignItems="center"
+            container
+            spacing={5}
+          >
+            <Grid item xs={12} sm={10} md={8}>
+              <Card>
+                <CardContent>
+                  <EditEventForm props={event} />
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Container>
+      </>
+    );
+  }
 }

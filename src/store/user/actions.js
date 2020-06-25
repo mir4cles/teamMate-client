@@ -1,5 +1,7 @@
 import { apiUrl } from "../../config/constants";
+
 import axios from "axios";
+
 import { selectToken, selectUser } from "./selectors";
 import {
   appLoading,
@@ -223,9 +225,40 @@ const cancelAttendEventSuccess = (userId) => {
   };
 };
 
-const updateEventsList = (event) => {
-  return {
-    type: UPDATE_EVENTS,
-    payload: event,
+export const editEvent = (
+  eventId,
+  title,
+  startDate,
+  endDate,
+  location,
+  sportType,
+  description,
+  outdoor,
+  maxPlayers
+) => {
+  return async (dispatch, getState, history) => {
+    const { id, token } = selectUser(getState());
+    dispatch(appLoading());
+
+    const response = await axios.patch(
+      `${apiUrl}/events/${eventId}`,
+      {
+        title,
+        startDate,
+        endDate,
+        location,
+        sportType,
+        description,
+        outdoor,
+        maxPlayers,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dispatch(setMessage("success", false, response.data.message));
+    dispatch(appDoneLoading());
   };
 };
