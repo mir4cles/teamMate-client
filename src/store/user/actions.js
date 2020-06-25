@@ -42,15 +42,17 @@ export const signUp = (name, email, password) => {
       });
 
       dispatch(loginSuccess(response.data));
-      dispatch(showMessageWithTimeout("success", true, "account created"));
+      dispatch(
+        showMessageWithTimeout("success", true, "Account created. Have fun!")
+      );
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
-        dispatch(setMessage("danger", true, error.response.data.message));
+        dispatch(setMessage("error", true, error.response.data.message));
       } else {
         console.log(error.message);
-        dispatch(setMessage("danger", true, error.message));
+        dispatch(setMessage("error", true, error.message));
       }
       dispatch(appDoneLoading());
     }
@@ -66,15 +68,16 @@ export const login = (email, password) => {
         password,
       });
       dispatch(loginSuccess(response.data));
-      dispatch(showMessageWithTimeout("success", false, "welcome back!", 1500));
+      console.log(response.data);
+      dispatch(
+        setMessage("success", false, `Welcome back ${response.data.name}!`)
+      );
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
-        dispatch(setMessage("danger", true, error.response.data.message));
+        dispatch(setMessage("error", false, error.response.data.message));
       } else {
-        console.log(error.message);
-        dispatch(setMessage("danger", true, error.message));
+        dispatch(setMessage("error", false, error.message));
       }
       dispatch(appDoneLoading());
     }
@@ -147,9 +150,7 @@ export const createEvent = (
         },
       }
     );
-    dispatch(
-      showMessageWithTimeout("success", false, response.data.message, 3000)
-    );
+    dispatch(setMessage("success", true, response.data.message));
     dispatch(appDoneLoading());
   };
 };
@@ -206,14 +207,7 @@ export const cancelAttendEvent = (eventId) => {
       dispatch(cancelAttendEventSuccess(id));
       dispatch(appDoneLoading());
     } catch (error) {
-      dispatch(
-        showMessageWithTimeout(
-          "succes",
-          false,
-          "You already cancelled this event",
-          3000
-        )
-      );
+      dispatch(setMessage("warning", true, "You already cancelled this event"));
     }
   };
 };
@@ -258,7 +252,7 @@ export const editEvent = (
         },
       }
     );
-    dispatch(setMessage("success", false, response.data.message));
+    dispatch(setMessage("success", true, "Event successfully updated"));
     dispatch(appDoneLoading());
   };
 };
