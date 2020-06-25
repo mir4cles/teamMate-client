@@ -15,14 +15,22 @@ import {
   Avatar,
   ListItemAvatar,
   ListItemText,
+  ListItemIcon,
+  CardMedia,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import EventBusyIcon from "@material-ui/icons/EventBusy";
 import EditIcon from "@material-ui/icons/Edit";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import SettingsIcon from "@material-ui/icons/Settings";
+import PeopleIcon from "@material-ui/icons/People";
+import ScheduleIcon from "@material-ui/icons/Schedule";
+import PersonPinIcon from "@material-ui/icons/PersonPin";
 
 import Loading from "../../components/Loading";
 import EditEventForm from "./EditEventForm";
+import eventHeader from "../../images/teammate.jpg";
 
 import { selectEventDetails } from "../../store/eventDetails/selectors";
 import { fetchEventById } from "../../store/eventDetails/actions";
@@ -51,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(1),
+  },
+  media: {
+    height: 140,
   },
 }));
 
@@ -124,53 +135,62 @@ export default function Events() {
           >
             <Grid item key={event.id} xs={12} sm={10} md={8}>
               <Card>
+                <CardMedia
+                  className={classes.media}
+                  image={eventHeader}
+                  title="Contemplative Reptile"
+                />
                 <CardContent>
                   <Typography variant="h4" component="h2">
                     {event.title}
                   </Typography>
-                  <Typography
-                    className={classes.title}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Start of event: {event.startDateTime}
-                  </Typography>
-                  <Typography
-                    className={classes.pos}
-                    variant="subtitle2"
-                    color="textSecondary"
-                  >
-                    Location: {event.location}
-                  </Typography>
-                  <Typography
-                    className={classes.pos}
-                    variant="subtitle2"
-                    color="textSecondary"
-                  >
-                    Sport: {event.sportType ? event.sportType : "to be decided"}
-                  </Typography>
-                  <Typography
-                    className={classes.pos}
-                    variant="subtitle2"
-                    color="textSecondary"
-                  >
-                    Capacity: {event.maxPlayers}
-                  </Typography>
-                  <Typography
-                    className={classes.pos}
-                    variant="subtitle2"
-                    color="textSecondary"
-                  >
-                    Hosted by: {event.user.name}
+                  <List dense>
+                    <ListItem>
+                      <ListItemIcon>
+                        <ScheduleIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={`Starts: ${event.startDateTime}`}
+                      />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <LocationOnIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={event.location} />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <SettingsIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={`${
+                          event.sportType ? event.sportType : "to be decided"
+                        }`}
+                      />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <PeopleIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={`Capacity: ${event.maxPlayers}`} />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <PersonPinIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={`Hosted by: ${event.user.name}`} />
+                    </ListItem>
+                  </List>
+                  <Typography variant="h6" component="h6">
+                    Description
                   </Typography>
                   <Typography variant="body2" component="p">
                     {event.description}
                   </Typography>
                   {event.attending.length ? (
                     <List dense>
-                      <Typography variant="subtitle2" color="textSecondary">
-                        Attending ({spotsLeft} spots available):
-                      </Typography>
+                      <Typography variant="h6">Attending:</Typography>
                       {event.attending.map((attendee) => {
                         return (
                           <ListItem key={attendee.id} alignItems="flex-start">

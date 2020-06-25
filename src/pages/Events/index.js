@@ -13,16 +13,23 @@ import {
   Fab,
   CardHeader,
   Avatar,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  List,
+  CardMedia,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
+import PeopleIcon from "@material-ui/icons/People";
+
+import Loading from "../../components/Loading";
+import eventHeader from "../../images/teammate.jpg";
 
 import { selectEvents } from "../../store/events/selectors";
 import { fetchEvents } from "../../store/events/actions";
 import { selectToken } from "../../store/user/selectors";
 import { selectAppLoading } from "../../store/appState/selectors";
-
-import Loading from "../../components/Loading";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -38,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     bottom: theme.spacing(2),
     right: theme.spacing(2),
+  },
+  media: {
+    height: 140,
   },
 }));
 
@@ -86,8 +96,13 @@ export default function Events() {
       <Container maxWidth="md" component="main">
         <Grid direction="row" align="flex-start" container spacing={5}>
           {events.map((event) => (
-            <Grid item key={event.id} xs={6}>
+            <Grid item key={event.id} sm={6} xs={12}>
               <Card>
+                <CardMedia
+                  className={classes.media}
+                  image={eventHeader}
+                  title="Contemplative Reptile"
+                />
                 <CardContent>
                   <CardHeader
                     avatar={<Avatar src={event.user.avatarUrl} />}
@@ -105,21 +120,31 @@ export default function Events() {
                     {event.description}
                   </Typography>
                   {event.attending.length ? (
-                    <Typography
-                      variant="subtitle2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      {event.attending.length} attending
-                    </Typography>
-                  ) : null}
+                    <List dense>
+                      <ListItem>
+                        <ListItemIcon>
+                          <PeopleIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={`${event.attending.length} people attending`}
+                        />
+                      </ListItem>
+                    </List>
+                  ) : // <Typography
+                  //   variant="subtitle2"
+                  //   component="p"
+                  //   color="textSecondary"
+                  // >
+                  //   {event.attending.length} attending
+                  // </Typography>
+                  null}
                 </CardContent>
                 <CardActions>
                   <Button
-                    variant="contained"
                     color="primary"
                     component={Link}
                     to={`/events/${event.id}`}
+                    className={classes.button}
                   >
                     See details
                   </Button>
