@@ -11,6 +11,8 @@ import {
   Button,
   CardActions,
   Fab,
+  CardHeader,
+  Avatar,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
@@ -82,36 +84,29 @@ export default function Events() {
         ) : null}
       </Container>
       <Container maxWidth="md" component="main">
-        <Grid
-          direction="column"
-          justify="center"
-          alignItems="center"
-          container
-          spacing={5}
-        >
+        <Grid direction="row" align="flex-start" container spacing={5}>
           {events.map((event) => (
-            <Grid item key={event.id} xs={12} sm={12} md={12}>
+            <Grid item key={event.id} xs={6}>
               <Card>
                 <CardContent>
+                  <CardHeader
+                    avatar={<Avatar src={event.user.avatarUrl} />}
+                    title={event.title}
+                    subheader={event.location}
+                  />
                   <Typography
                     className={classes.title}
                     color="textSecondary"
-                    gutterBottom
+                    variant="subtitle1"
                   >
                     {event.startDateTime}
                   </Typography>
-                  <Typography variant="h5" component="h2">
-                    {event.title}
-                  </Typography>
-                  <Typography className={classes.pos} color="textSecondary">
-                    Location: {event.location}
-                  </Typography>
-                  <Typography variant="body2" component="p">
+                  <Typography variant="body1" component="p">
                     {event.description}
                   </Typography>
                   {event.attending.length ? (
                     <Typography
-                      variant="body2"
+                      variant="subtitle2"
                       component="p"
                       color="textSecondary"
                     >
@@ -121,9 +116,9 @@ export default function Events() {
                 </CardContent>
                 <CardActions>
                   <Button
-                    size="small"
-                    component={Link}
+                    variant="contained"
                     color="primary"
+                    component={Link}
                     to={`/events/${event.id}`}
                   >
                     See details

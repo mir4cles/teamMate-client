@@ -64,6 +64,8 @@ export default function Events() {
   const [editMode, setEditMode] = useState(false);
   const loading = useSelector(selectAppLoading);
 
+  const spotsLeft = event.maxPlayers - event.attending.length;
+
   const attendingIds = event.attending.map((user) => user.id);
   const attendButton = attendingIds.includes(user.id) ? (
     <Button
@@ -123,37 +125,60 @@ export default function Events() {
             <Grid item key={event.id} xs={12} sm={10} md={8}>
               <Card>
                 <CardContent>
+                  <Typography variant="h4" component="h2">
+                    {event.title}
+                  </Typography>
                   <Typography
                     className={classes.title}
                     color="textSecondary"
                     gutterBottom
                   >
-                    {event.startDateTime}
+                    Start of event: {event.startDateTime}
                   </Typography>
-                  <Typography variant="h5" component="h2">
-                    {event.title}
-                  </Typography>
-                  <Typography className={classes.pos} color="textSecondary">
+                  <Typography
+                    className={classes.pos}
+                    variant="subtitle2"
+                    color="textSecondary"
+                  >
                     Location: {event.location}
+                  </Typography>
+                  <Typography
+                    className={classes.pos}
+                    variant="subtitle2"
+                    color="textSecondary"
+                  >
+                    Sport: {event.sportType ? event.sportType : "to be decided"}
+                  </Typography>
+                  <Typography
+                    className={classes.pos}
+                    variant="subtitle2"
+                    color="textSecondary"
+                  >
+                    Capacity: {event.maxPlayers}
                   </Typography>
                   <Typography variant="body2" component="p">
                     {event.description}
                   </Typography>
-                  {event.attending.map((attendee) => {
-                    return (
-                      <List key={attendee.id}>
-                        <ListItem alignItems="flex-start">
-                          <ListItemAvatar>
-                            <Avatar src={attendee.avatarUrl} />
-                          </ListItemAvatar>
-                          <ListItemText
-                            primary={attendee.name}
-                            secondary={attendee.email}
-                          />
-                        </ListItem>
-                      </List>
-                    );
-                  })}
+                  {event.attending.length ? (
+                    <List dense>
+                      <Typography variant="subtitle2" color="textSecondary">
+                        Attending ({spotsLeft} spots available):
+                      </Typography>
+                      {event.attending.map((attendee) => {
+                        return (
+                          <ListItem key={attendee.id} alignItems="flex-start">
+                            <ListItemAvatar>
+                              <Avatar src={attendee.avatarUrl} />
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={attendee.name}
+                              secondary={attendee.email}
+                            />
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  ) : null}
                 </CardContent>
                 <CardActions>
                   {token ? attendButton : null}
