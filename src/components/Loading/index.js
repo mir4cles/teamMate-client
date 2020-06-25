@@ -38,6 +38,11 @@ export default function Loading() {
           spacing={5}
         >
           <Card className={classes.card}>
+            <Skeleton
+              animation="wave"
+              variant="rect"
+              className={classes.media}
+            />
             <CardHeader
               avatar={
                 <Skeleton
@@ -56,11 +61,6 @@ export default function Loading() {
                 />
               }
               subheader={<Skeleton animation="wave" height={10} width="40%" />}
-            />
-            <Skeleton
-              animation="wave"
-              variant="rect"
-              className={classes.media}
             />
 
             <CardContent>
