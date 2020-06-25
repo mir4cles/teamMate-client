@@ -1,5 +1,7 @@
 import { apiUrl } from "../../config/constants";
+
 import axios from "axios";
+
 import { selectToken, selectUser } from "./selectors";
 import {
   appLoading,
@@ -234,7 +236,7 @@ export const editEvent = (
   outdoor,
   maxPlayers
 ) => {
-  return async (dispatch, getState) => {
+  return async (dispatch, getState, history) => {
     const { id, token } = selectUser(getState());
     dispatch(appLoading());
 
@@ -256,9 +258,7 @@ export const editEvent = (
         },
       }
     );
-    dispatch(
-      showMessageWithTimeout("success", false, response.data.message, 3000)
-    );
+    dispatch(setMessage("success", false, response.data.message));
     dispatch(appDoneLoading());
   };
 };
