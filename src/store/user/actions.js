@@ -43,16 +43,16 @@ export const signUp = (name, email, password) => {
 
       dispatch(loginSuccess(response.data));
       dispatch(
-        showMessageWithTimeout("success", true, "Account created. Have fun!")
+        showMessageWithTimeout("success", false, "Account created. Have fun!")
       );
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
-        dispatch(setMessage("error", true, error.response.data.message));
+        dispatch(setMessage("error", false, error.response.data.message));
       } else {
         console.log(error.message);
-        dispatch(setMessage("error", true, error.message));
+        dispatch(setMessage("error", false, error.message));
       }
       dispatch(appDoneLoading());
     }
@@ -150,7 +150,7 @@ export const createEvent = (
         },
       }
     );
-    dispatch(setMessage("success", true, response.data.message));
+    dispatch(setMessage("success", false, response.data.message));
     dispatch(appDoneLoading());
   };
 };
@@ -207,7 +207,9 @@ export const cancelAttendEvent = (eventId) => {
       dispatch(cancelAttendEventSuccess(id));
       dispatch(appDoneLoading());
     } catch (error) {
-      dispatch(setMessage("warning", true, "You already cancelled this event"));
+      dispatch(
+        setMessage("warning", false, "You already cancelled this event")
+      );
     }
   };
 };
@@ -252,7 +254,7 @@ export const editEvent = (
         },
       }
     );
-    dispatch(setMessage("success", true, "Event successfully updated"));
+    dispatch(setMessage("success", false, "Event successfully updated"));
     dispatch(appDoneLoading());
   };
 };

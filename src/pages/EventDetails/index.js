@@ -112,20 +112,10 @@ export default function Events() {
     return (
       <>
         <Container
-          maxWidth="sm"
+          maxWidth="md"
           component="main"
           className={classes.heroContent}
         >
-          <Typography
-            variant="h5"
-            align="center"
-            color="textSecondary"
-            component="p"
-          >
-            Event details
-          </Typography>
-        </Container>
-        <Container maxWidth="md" component="main">
           <Grid
             direction="column"
             justify="center"
@@ -133,7 +123,7 @@ export default function Events() {
             container
             spacing={5}
           >
-            <Grid item key={event.id} xs={12} sm={10} md={8}>
+            <Grid item key={event.id} xs={11} sm={11} md={8}>
               <Card>
                 <CardMedia
                   className={classes.media}
@@ -231,20 +221,10 @@ export default function Events() {
     return (
       <>
         <Container
-          maxWidth="sm"
+          maxWidth="md"
           component="main"
           className={classes.heroContent}
         >
-          <Typography
-            variant="h5"
-            align="center"
-            color="textSecondary"
-            component="p"
-          >
-            Edit event details
-          </Typography>
-        </Container>
-        <Container maxWidth="md" component="main">
           <Grid
             direction="column"
             justify="center"

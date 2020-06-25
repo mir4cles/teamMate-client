@@ -71,15 +71,7 @@ export default function Events() {
 
   return (
     <>
-      <Container maxWidth="sm" component="main" className={classes.heroContent}>
-        <Typography
-          variant="h5"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          Events
-        </Typography>
+      <Container maxWidth="md" component="main" className={classes.heroContent}>
         {token ? (
           <Fab
             size="medium"
@@ -92,11 +84,15 @@ export default function Events() {
             <AddIcon />
           </Fab>
         ) : null}
-      </Container>
-      <Container maxWidth="md" component="main">
-        <Grid direction="row" align="flex-start" container spacing={5}>
+        <Grid
+          direction="row"
+          align="flex-start"
+          justify="center"
+          container
+          spacing={5}
+        >
           {events.map((event) => (
-            <Grid item key={event.id} sm={6} xs={12}>
+            <Grid item key={event.id} xs={10} sm={5} md={5}>
               <Card>
                 <CardMedia
                   className={classes.media}
@@ -130,14 +126,7 @@ export default function Events() {
                         />
                       </ListItem>
                     </List>
-                  ) : // <Typography
-                  //   variant="subtitle2"
-                  //   component="p"
-                  //   color="textSecondary"
-                  // >
-                  //   {event.attending.length} attending
-                  // </Typography>
-                  null}
+                  ) : null}
                 </CardContent>
                 <CardActions>
                   <Button

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, NavLink } from "react-router-dom";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -17,6 +17,7 @@ import LoggedIn from "./LoggedIn";
 import LoggedOut from "./LoggedOut";
 
 import { selectToken } from "../../store/user/selectors";
+import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,12 +53,16 @@ export default function Navigation() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <EmojiEventsIcon
+          <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-          />
+            component={RouterLink}
+            to="/"
+          >
+            <EmojiEventsIcon />
+          </IconButton>
           <Typography variant="h6" noWrap className={classes.title}>
             teamMate
           </Typography>
@@ -66,34 +71,13 @@ export default function Navigation() {
             variant="button"
             color="inherit"
             className={classes.link}
-            to="/support"
+            to="/events"
           >
-            SUPPORT
+            EVENTS
           </Link>
           {loginLogoutControls}
         </Toolbar>
       </AppBar>
-
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab
-          icon={<GroupIcon />}
-          label="TEAMS"
-          component={RouterLink}
-          to="/teams"
-        />
-        <Tab
-          icon={<EventNoteIcon />}
-          label="EVENTS"
-          component={RouterLink}
-          to="/events"
-        />
-      </Tabs>
     </div>
   );
 }
