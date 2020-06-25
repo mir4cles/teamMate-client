@@ -156,6 +156,13 @@ export default function Events() {
                   >
                     Capacity: {event.maxPlayers}
                   </Typography>
+                  <Typography
+                    className={classes.pos}
+                    variant="subtitle2"
+                    color="textSecondary"
+                  >
+                    Hosted by: {event.user.name}
+                  </Typography>
                   <Typography variant="body2" component="p">
                     {event.description}
                   </Typography>
