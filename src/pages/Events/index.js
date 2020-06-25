@@ -18,6 +18,9 @@ import AddIcon from "@material-ui/icons/Add";
 import { selectEvents } from "../../store/events/selectors";
 import { fetchEvents } from "../../store/events/actions";
 import { selectToken } from "../../store/user/selectors";
+import { selectAppLoading } from "../../store/appState/selectors";
+
+import Loading from "../../components/Loading";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -44,10 +47,15 @@ export default function Events() {
   const events = useSelector(selectEvents);
 
   const token = useSelector(selectToken);
+  const loading = useSelector(selectAppLoading);
 
   useEffect(() => {
     dispatch(fetchEvents());
   }, [dispatch]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
