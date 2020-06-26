@@ -69,7 +69,11 @@ export const login = (email, password) => {
       });
       dispatch(loginSuccess(response.data));
       dispatch(
-        setMessage("success", false, `Welcome back ${response.data.name}!`)
+        showMessageWithTimeout(
+          "success",
+          false,
+          `Welcome back ${response.data.name}!`
+        )
       );
       dispatch(appDoneLoading());
     } catch (error) {
@@ -140,7 +144,7 @@ export const createEvent = (
         },
       }
     );
-    dispatch(setMessage("success", false, response.data.message));
+    dispatch(setMessage("success", true, response.data.message));
     dispatch(appDoneLoading());
   };
 };
@@ -244,7 +248,9 @@ export const editEvent = (
         },
       }
     );
-    dispatch(setMessage("success", false, "Event successfully updated"));
+    dispatch(
+      showMessageWithTimeout("success", false, "Event successfully updated")
+    );
     dispatch(appDoneLoading());
   };
 };
