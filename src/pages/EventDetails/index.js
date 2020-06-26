@@ -72,7 +72,7 @@ export default function Events() {
       startIcon={<EventBusyIcon />}
       onClick={() => dispatch(cancelAttendEvent(id))}
     >
-      Cancel
+      Don't go
     </Button>
   ) : (
     <Button
