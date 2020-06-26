@@ -68,7 +68,6 @@ export const login = (email, password) => {
         password,
       });
       dispatch(loginSuccess(response.data));
-      console.log(response.data);
       dispatch(
         setMessage("success", false, `Welcome back ${response.data.name}!`)
       );
@@ -86,21 +85,14 @@ export const login = (email, password) => {
 
 export const getUserWithStoredToken = () => {
   return async (dispatch, getState) => {
-    // get token from the state
     const token = selectToken(getState());
-
-    // if we have no token, stop
     if (token === null) return;
 
     dispatch(appLoading());
     try {
-      // if we do have a token,
-      // check wether it is still valid or if it is expired
       const response = await axios.get(`${apiUrl}/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      // token is still valid
       dispatch(tokenStillValid(response.data));
       dispatch(appDoneLoading());
     } catch (error) {
@@ -109,8 +101,6 @@ export const getUserWithStoredToken = () => {
       } else {
         console.log(error);
       }
-      // if we get a 4xx or 5xx response,
-      // get rid of the token by logging out
       dispatch(logOut());
       dispatch(appDoneLoading());
     }
@@ -233,10 +223,10 @@ export const editEvent = (
   maxPlayers
 ) => {
   return async (dispatch, getState, history) => {
-    const { id, token } = selectUser(getState());
+    const { token } = selectUser(getState());
     dispatch(appLoading());
 
-    const response = await axios.patch(
+    await axios.patch(
       `${apiUrl}/events/${eventId}`,
       {
         title,
