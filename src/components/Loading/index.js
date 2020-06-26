@@ -7,10 +7,8 @@ import {
   Grid,
   Card,
   CardHeader,
-  IconButton,
   CardContent,
 } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {

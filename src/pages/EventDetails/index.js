@@ -34,11 +34,7 @@ import eventHeader from "../../images/teammate.jpg";
 
 import { selectEventDetails } from "../../store/eventDetails/selectors";
 import { fetchEventById } from "../../store/eventDetails/actions";
-import {
-  attendEvent,
-  cancelAttendEvent,
-  editEvent,
-} from "../../store/user/actions";
+import { attendEvent, cancelAttendEvent } from "../../store/user/actions";
 import { selectToken, selectUser } from "../../store/user/selectors";
 import { selectAppLoading } from "../../store/appState/selectors";
 
@@ -46,16 +42,8 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     padding: theme.spacing(4, 0, 6),
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
   title: {
     fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
   },
   button: {
     margin: theme.spacing(1),
@@ -74,8 +62,6 @@ export default function Events() {
   const user = useSelector(selectUser);
   const [editMode, setEditMode] = useState(false);
   const loading = useSelector(selectAppLoading);
-
-  const spotsLeft = event.maxPlayers - event.attending.length;
 
   const attendingIds = event.attending.map((user) => user.id);
   const attendButton = attendingIds.includes(user.id) ? (

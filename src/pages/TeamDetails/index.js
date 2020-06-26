@@ -8,8 +8,6 @@ import {
   Grid,
   Card,
   CardContent,
-  Button,
-  CardActions,
   CardMedia,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";

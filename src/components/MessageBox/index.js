@@ -14,8 +14,6 @@ export default function MessageBox() {
   const message = useSelector(selectMessage);
   const showMessage = message !== null;
 
-  console.log("showMessage", showMessage);
-
   if (!showMessage) return null;
 
   if (message.dismissable) {
