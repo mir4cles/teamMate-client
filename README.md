@@ -1,42 +1,49 @@
-# Frontend template
+# teamMate
 
-This is a simple react/redux/jwt template to start a project quickly
+See the deployed site [here](https://modest-austin-b02609.netlify.app/).
 
 ## Table of contents:
 
-- **[Setup](#setup-how-to-use-this-template)**
-- **[Create React App docs](#cra-docs)**
+- **[About](#about-teamMate)**
+- **[Getting started](#cra-docs)**
+- **[Built with](#built-with)**
+- **[User stories and Wireframe](#User-stories-and-Wireframe)**
 
-## SETUP How to use this template
+## About teamMate
 
-1. Create a new project based on this template using the `Use this template` button
+teamMate allows users to browse and host sport events. users can start a team, join an existing one or ride solo and attend private or public pick-up games.
 
-![HOW_TO_USE](https://user-images.githubusercontent.com/20372832/77003323-70966180-695d-11ea-8abe-b362d57135f3.gif)
+## Getting started
 
-2. Clone the app
+1. Clone the repo
 
-```
-git clone git@github.com:YOUR_GITHUB_NAME/YOUR_PROJECT_NAME.git
-```
+2. cd into the repo on your computer.
 
-3. cd into your project
-
-```
-cd YOUR_PROJECT_NAME
-```
-
-4. install dependencies
+3. Install dependencies
 
 ```
-npm install
+$ npm install
 ```
 
-5. Start development server with npm start
+4. Compile and run to run the app in a browser
 
 ```
-npm start
+$ npm run start
 ```
 
-## CRA docs
+4. If you like to use the server to see some data go [here](https://github.com/mir4cles/teamMate-server) and repeat steps 1,2,3,4
 
-The normal Create React App docs can be found in [CRA_DOCS.md](./CRA_DOCS.md)
+5. Let me know what you think.
+
+## Built With
+
+- [Material Ui](https://material-ui.com/)
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [Codaisseur's React Redux Template](https://github.com/Codaisseur/express-template)
+
+## User stories and Wireframe
+
+- [User storires](https://github.com/users/mir4cles/projects/1#column-9641210)
+- [Wireframe of design](https://wireframepro.mockflow.com/view/teamMate-client-wireframe)
+- [Database diagram](https://app.lucidchart.com/invitations/accept/9dd630e3-019a-48af-91cd-c250ff20fdec)
