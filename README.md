@@ -5,7 +5,7 @@ See the deployed site [here](https://modest-austin-b02609.netlify.app/).
 ## Table of contents:
 
 - **[About](#about-teamMate)**
-- **[Getting started](#cra-docs)**
+- **[Getting started](#getting-started)**
 - **[Built with](#built-with)**
 - **[User stories and Wireframe](#User-stories-and-Wireframe)**
 
