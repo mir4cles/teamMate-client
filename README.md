@@ -1,6 +1,6 @@
 # teamMate
 
-See the deployed site [here](https://modest-austin-b02609.netlify.app/).
+See the deployed site [here](https://modest-austin-b02609.netlify.app/) (loading times may vary due to database hosting).
 
 ## Table of contents:
 
